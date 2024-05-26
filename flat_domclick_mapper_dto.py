@@ -26,8 +26,12 @@ class FlatDomClickMapperDto:
                 total_area = offer_info.generalInfo.area
                 floor_number = offer_info.generalInfo.maxFloor
                 rooms_count = offer_info.generalInfo.rooms
-                deadline_year = offer_info.complex.building.endBuildYear
-                deadline_quarter_int = offer_info.complex.building.endBuildQuarter
+                if hasattr(offer_info.complex.building, "endBuildYear") and hasattr(offer_info.complex.building, "endBuildQuarter"):
+                    deadline_year = offer_info.complex.building.endBuildYear
+                    deadline_quarter_int = offer_info.complex.building.endBuildQuarter
+                else:
+                    deadline_year = deadline[0]
+                    deadline_quarter_int = deadline[1]
                 developer_jk_id = offer_info.complex.id
             elif offer_info.sstype == "ProductSnippet":
                 jk = offer_info.flatComplex.name
